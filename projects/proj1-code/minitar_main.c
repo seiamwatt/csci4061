@@ -19,6 +19,8 @@ int main(int argc, char **argv) {
     char operation = '\0';
     char *archive_name = NULL;
     int i;
+
+    // search through argc for valid operation
     for (i = 1; i < argc; i++) {
         if (argv[i][0] == '-' && strlen(argv[i]) == 2) {
             char flag = argv[i][1];
@@ -29,7 +31,7 @@ int main(int argc, char **argv) {
         }
     }
 
-
+    // fine the archive file name
     for (i = 1; i < argc - 1; i++) {
         if (strcmp(argv[i], "-f") == 0) {
             archive_name = argv[i + 1];
@@ -37,12 +39,14 @@ int main(int argc, char **argv) {
         }
     }
 
+    // check for correct format
     if (operation == '\0' || archive_name == NULL) {
         printf("Usage: %s -c|a|t|u|x -f ARCHIVE [FILE...]\n", argv[0]);
         file_list_clear(&files);
         return 1;
     }
 
+    //
     if (operation == 'c' || operation == 'a' || operation == 'u') {
         for (i = 1; i < argc; i++) {
             if ((argv[i][0] == '-') ||
@@ -51,7 +55,7 @@ int main(int argc, char **argv) {
             }
 
             if (file_list_add(&files, argv[i]) != 0) {
-                printf("Error: Failed to add file to list\n");
+                printf("Error: cannot add file to the list\n");
                 file_list_clear(&files);
                 return 1;
             }
@@ -76,15 +80,17 @@ int main(int argc, char **argv) {
             }
         }
         file_list_clear(&archive_files);
+
+        // append the files if they are not in the archive, also check for any duplicates 
     } else if (operation == 'u') {
         file_list_t archive_files;
         file_list_init(&archive_files);
         if (get_archive_file_list(archive_name, &archive_files) != 0) {
-            printf("Error: Failed to read archive\n");
+            printf("Error:cannot read archive\n");
             file_list_clear(&archive_files);
             result = -1;
         } else if (!file_list_is_subset(&files, &archive_files)) {
-            printf("Error: One or more of the specified files is not already present in archive\n");
+            printf("Error: file is present in the archive\n");
             file_list_clear(&archive_files);
             result = -1;
         } else {
@@ -94,10 +100,11 @@ int main(int argc, char **argv) {
     } else if (operation == 'x') {
         result = extract_files_from_archive(archive_name);
     } else {
-        printf("Error: Invalid operation\n");
+        printf("Error: not an operation\n");
         result = -1;
     }
 
+    // clean up memory
     file_list_clear(&files);
     return 0;
 }

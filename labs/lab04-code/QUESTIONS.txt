@@ -54,7 +54,7 @@ Program Output
   (each of 1. 2. 3. appear on separate lines in the output)
   - ( ) 1. Now you see me. 2. Now you don't!  3. How mysterious...
   - ( ) 1. Now you see me. 2. Now you don't!
-  - ( ) 1. Now you see me. 3. How mysterious...
+  - (X) 1. Now you see me. 3. How mysterious...
   - ( ) 1. Now you see me.
 
 
@@ -65,7 +65,7 @@ open() system call
   example.  What is returned by this system call?
   - ( ) A `FILE *' which is passed to subsequent I/O operations or
     'NULL' for failure
-  - ( ) An integer file descriptor which is >= 0 for success and -1 for
+  - (X) An integer file descriptor which is >= 0 for success and -1 for
     failure
   - ( ) An integer return code that is 1 for success and 0 for failure
   - ( ) A `char *' which is the name of the opened file or `NULL' for
@@ -77,7 +77,7 @@ Use of dup()
 
   Which of the following best describes how the 'dup()' system call is
   used in 'switch_stdout.c'?
-  - ( ) It creates a duplicate of a file descriptor allowing standard
+  - (X) It creates a duplicate of a file descriptor allowing standard
     output to be restored to the screen later in the program.
   - ( ) It manipulates the file descriptor table so output that would go
     to the screen goes into a file instead.
@@ -94,7 +94,7 @@ Use of dup2()
   used in 'switch_stdout.c'?
   - ( ) It creates a duplicate of a file descriptor allowing standard
     output to be restored to the screen later in the program.
-  - ( ) It manipulates the file descriptor table so output that would go
+  - (X) It manipulates the file descriptor table so output that would go
     to the screen goes into a file instead.
   - ( ) It duplicates an existing file creating an efficient copy of it
     on disk.
@@ -114,7 +114,7 @@ printf() changes in behavior
   - ( ) 'printf()' is called the same way in each case but automatically
     begins printing to a file that is opened and when the file is
     closed, 'printf()' reverts to printing to the screen
-  - ( ) 'printf()' is called the same way in each case and always prints to
+  - (X) 'printf()' is called the same way in each case and always prints to
     standard output but by changing what is in the file descriptor table
     at that position, output goes to the screen or to a file.
 
